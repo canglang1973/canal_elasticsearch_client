@@ -172,7 +172,6 @@ public class BaseCanalClient {
      */
     private void handleColumnData(String tableName, Map<String, Object> map) {
         this.handleSQLTimestamp(map);
-        this.handleBlobText(tableName, map);
         this.handleBlobColumn(map);
         logger.debug(String.format("表[%s],变更后的数据:%s", tableName, JSON.toJSONString(map)));
         //id已作为ES文档的_id 此处文档内就不重复存id字段了
@@ -194,27 +193,6 @@ public class BaseCanalClient {
                     map.put(entry.getKey(), format);
                 }
         );
-    }
-
-    /**
-     * 解压shop_item_text 表中的大字段
-     *
-     * @param tableName
-     * @param map
-     */
-    private void handleBlobText(String tableName, Map<String, Object> map) {
-        if (Constants.SHOP_ITEM_TEXT_TABLE.equals(tableName)) {
-            map.entrySet().stream().filter(entry -> Constants.SHOP_ITEM_TEXT_BLOB_COLUMN.equals(entry.getKey())).forEach(entry -> {
-                byte[] textBytes = (byte[]) entry.getValue();
-                String text = null;
-                try {
-                    text = Snappy.uncompressString(textBytes);
-                } catch (Exception e) {
-                    logger.error(String.format("Snappy解压表[%s],列[%s]异常,ID[%s]", tableName, entry.getKey(), map.get(Constants.PK_ID)), e);
-                }
-                map.put(entry.getKey(), text);
-            });
-        }
     }
 
     /**
