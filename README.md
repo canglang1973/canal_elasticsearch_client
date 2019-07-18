@@ -27,10 +27,10 @@ Canal client
 配置文件内容:
 
     # client 配置
-    zk.servers=10.100.12.11:2181
+    zk.servers=127.0.0.1:2181
     
     # 直连canal server
-    canal.single.server.host=10.100.12.38
+    canal.single.server.host=127.0.0.1
     canal.single.server.port=11111
     canal.batch.size=5120
     canal.client.log.level=INFO
@@ -39,7 +39,7 @@ Canal client
     
     # 同步目标: es 配置
     target.es.cluster.name=wx-log-cluster
-    target.es.cluster.addresses=10.100.12.123,10.100.12.124,10.100.12.125
+    target.es.cluster.addresses=127.0.0.1
     target.es.cluster.port=9200
     
     # 批量ES请求配置 不配置按系统默认值
