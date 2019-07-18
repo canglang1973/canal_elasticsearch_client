@@ -38,7 +38,7 @@ Canal client
     destination=shop_item
     
     # 同步目标: es 配置
-    target.es.cluster.name=wx-log-cluster
+    target.es.cluster.name=es-cluster
     target.es.cluster.addresses=127.0.0.1
     target.es.cluster.port=9200
     
